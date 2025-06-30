@@ -7,26 +7,33 @@
     "spacing": 4, // Gaps between modules (4px)
     // Choose the order of the modules
     "modules-left": [
-        "hyprland/workspaces",
-        "hyprland/submap",
-        "hyprland/scratchpad"
+        "hyprland/workspaces"
+        // "custom/bluefilter" //custom, added by ChatGPT
+        // "hyprland/submap",
+        // "hyprland/scratchpad"
     ],
     "modules-center": [
         "hyprland/window"
     ],
     "modules-right": [
-        "idle_inhibitor",
+        // "idle_inhibitor",
+        "custom/weather", //custom, added by https://github.com/Alexays/Waybar/wiki/Module:-Custom:-Third-party "Weather with detailed forecast (using wttr.in)"
         "pulseaudio",
         "network",
-        "power-profiles-daemon",
-        "cpu",
-        "memory",
-        "temperature",
-        "backlight",
-        "hyprland/language",
-        "battery",
-        "clock",
-        "tray"
+        // "power-profiles-daemon",
+        // "cpu",
+        // "memory",
+        // "temperature",
+        // "backlight",
+        // "mpd",
+        "custom/media",
+        // "backlight/slider",
+        // "hyprland/language",
+        // "battery",
+        // "clock",
+        "custom/clock",
+        // "tray",
+        "custom/power"
     ],
     // Modules configuration
     // "sway/workspaces": {
@@ -46,22 +53,32 @@
     //     }
     // },
     "hyprland/workspaces": {
+        "active-only": false,
         "disable-scroll": false,
         "all-outputs": true,
         "warp-on-scroll": false,
+        "on-click": "activate",
         "on-scroll-up": "hyprctl dispatch workspace e+1",
         "on-scroll-down": "hyprctl dispatch workspace e-1",
-        "format": "{name}: {icon}",
-        "format-focused": "[{name}] : {icon}",  // bracket the focused
+        "format": "{icon}", //"{name} {icon}", //"{name}: {icon}",
+        // "format-focused": "[{name}] : {icon}", // bracket the focused
         "format-icons": {
-            "1": "",
-            "2": "",
-            "3": "",
-            "4": "",
-            "5": "",
+            // "1": "",
+            // "2": "",
+            // "3": "",
+            // "4": "",
+            // "5": "",
+            "active": "",
             "urgent": "",
             "focused": "",
             "default": ""
+        },
+        "persistent-workspaces": {
+            "1": [],
+            "2": [],
+            "3": [],
+            "4": [],
+            "5": [],
         }
     },
     "keyboard-state": {
@@ -90,7 +107,7 @@
         "format": "{stateIcon} {consumeIcon}{randomIcon}{repeatIcon}{singleIcon}{artist} - {album} - {title} ({elapsedTime:%M:%S}/{totalTime:%M:%S}) ⸨{songPosition}|{queueLength}⸩ {volume}% ",
         "format-disconnected": "Disconnected ",
         "format-stopped": "{consumeIcon}{randomIcon}{repeatIcon}{singleIcon}Stopped ",
-        "unknown-tag": "N/A",
+        // "unknown-tag": "N/A",
         "interval": 5,
         "consume-icons": {
             "on": " "
@@ -123,12 +140,17 @@
         // "icon-size": 21,
         "spacing": 0
     },
-    "clock": {
-        // "timezone": "America/New_York",
-        "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
-        "format-alt": "{:%Y-%m-%d}",
-        "format": "{:%I:%M %p}",
-        "timezone": "Philippines/Manila"
+    // "clock": {
+    //     // "timezone": "America/New_York",
+    //     "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
+    //     "format-alt": "{:%Y-%m-%d}",
+    //     "format": "{:%I:%M %p}",
+    //     "timezone": "Asia/Singapore" //alternative to "Philippines/Manila"
+    // },
+    "custom/clock": {
+        "exec": "date +\"%-I:%M %p\"", //"date +\"%a %b %e %-I:%M %p\"",
+        "interval": 1, //60,
+        // "format": "{output}" // Use whatever wrapper you like, e.g. icons
     },
     "cpu": {
         "format": "{usage}% ",
@@ -150,7 +172,10 @@
         ]
     },
     "backlight": {
-        // "device": "acpi_video1",
+        // "device": 
+        //"nvidia_0", 
+        //"intel_backlight", 
+        //"acpi_video0",
         "format": "{percent}% {icon}",
         "format-icons": [
             "🌑",
@@ -160,6 +185,12 @@
             "🌕"
         ]
     },
+    // "backlight/slider": {
+    //     "min": 0,
+    //     "max": 100,
+    //     "orientation": "horizontal",
+    //     "device": "intel_backlight" //"acpi_video0" //"nvidia_0"
+    // },
     "battery": {
         "states": {
             // "good": 95,
@@ -236,11 +267,14 @@
             "default": "🎜"
         },
         "escape": true,
-        "exec": "$HOME/.config/waybar/mediaplayer.py 2> /dev/null" // Script in resources folder
-        // "exec": "$HOME/.config/waybar/mediaplayer.py --player spotify 2> /dev/null" // Filter player based on name
+        "exec": "python3 -u $HOME/.config/waybar/mediaplayer.py 2> /dev/null", // Script in resources folder
+        // "exec": "python3 -u $HOME/.config/waybar/mediaplayer.py --player spotify 2> /dev/null" // Filter player based on name
+        "on-click": "playerctl play-pause",
+        "on-scroll-up": "playerctl next",
+        "on-scroll-down": "playerctl previous"
     },
     "custom/power": {
-        "format": "⏻ ",
+        "format": "⏻",
         "tooltip": false,
         "menu": "on-click",
         "menu-file": "$HOME/.config/waybar/power_menu.xml", // Menu file in resources folder
@@ -250,5 +284,20 @@
             "suspend": "systemctl suspend",
             "hibernate": "systemctl hibernate"
         }
-    }
+    },
+    "custom/bluefilter": { //turned off due to being buggy
+        "format": "󰈋 {text}",
+        "tooltip": "Toggle blue light filter",
+        "interval": "once",
+        "exec": "$HOME/.config/waybar/scripts/blue_toggle.sh", //"bash $HOME/.config/waybar/scripts/blue_toggle.sh",
+        "on-click": "$HOME/.config/waybar/scripts/blue_toggle.sh", //"bash $HOME/.config/waybar/scripts/blue_toggle.sh"
+        "signal": 3
+    },
+    "custom/weather": {
+        "format": "{}°",
+        "tooltip": true,
+        "interval": 3600,
+        "exec": "wttrbar",
+        "return-type": "json"
+    },
 }

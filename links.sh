@@ -83,28 +83,53 @@ done
 
 # ---------
 
-echo -e "${GREEN}Creating symlink for waybar folder...${NC}"
-# ln -s "$SCRIPT_DIR/waybar" "$HOME/.config/waybar"
+SRC="$SCRIPT_DIR/starship/starship.toml"
+LINK="$HOME/.config/starship.toml"
 
-SRC="$SCRIPT_DIR/waybar"
-DEST="$HOME/.config/waybar"
+echo -e "${GREEN}Creating symlink for starship...${NC}"
 
-mkdir -p "$(dirname "$DEST")"
+ln -s "$SRC" "$LINK"
 
-# Replace any existing file/symlink and force treat DEST as file (not directory)
-ln -sTfn "$SRC" "$DEST"
+# ---------
+
+SRC="$SCRIPT_DIR/bash/.bashrc"
+LINK="$HOME/.bashrc"
+
+echo -e "${GREEN}Creating symlink for bash...${NC}"
+
+ln -s "$SRC" "$LINK"
+
+# optionally:
+# source ~/.bashrc
 
 # --------
 
-echo -e "${GREEN}Creating symlink for hyprlock folder...${NC}"
-# ln -s "$SCRIPT_DIR/hypr/hyprlock" "$HOME/.config/hypr/hyprlock"
+SRC="$SCRIPT_DIR/zsh/.zshrc"
+LINK="$HOME/.zsh"
 
-SRC="$SCRIPT_DIR/hypr/hyprlock"
-DEST="$HOME/.config/hypr/hyprlock"
+echo -e "${GREEN}Creating symlink for zsh...${NC}"
 
-mkdir -p "$(dirname "$DEST")"
+ln -s "$SRC" "$LINK"
 
-# Replace any existing file/symlink and force treat DEST as file (not directory)
-ln -sTfn "$SRC" "$DEST"
+# optionally:
+# source ~/.zshrc
+
+# --------
+
+# list of config folders to link (basename only)
+FOLDERS=(
+  waybar
+  hypr/hyprlock
+  alacritty
+)
+
+for f in "${FOLDERS[@]}"; do
+  SRC="$SCRIPT_DIR/$f"
+  LINK="$HOME/.config/$f"
+  echo -e "${GREEN}Creating symlink for $f folder...${NC}"
+  mkdir -p "$(dirname "$LINK")"
+  # Replace any existing file/symlink and force treat DEST as file (not directory)
+  ln -sTfn "$SRC" "$LINK"
+done
 
 echo -e "${GREEN}Setup complete!${NC}"

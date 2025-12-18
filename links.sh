@@ -88,28 +88,39 @@ LINK="$HOME/.config/starship.toml"
 
 echo -e "${GREEN}Creating symlink for starship...${NC}"
 
-ln -s "$SRC" "$LINK"
+# ln -s "$SRC" "$LINK"
+
+# Use this if checking for a link name (be it a file, symlink, or directory)
+# if [ ! -e "$LINK" ]; then
+#   ln -s "$SRC" "$LINK"
+# fi
+
+# Use this instead if you want to check specifically for a symlink
+if [ ! -L "$LINK" ]; then
+  ln -s "$SRC" "$LINK"
+fi
+
 
 # ---------
 
-SRC="$SCRIPT_DIR/bash/.bashrc"
-LINK="$HOME/.bashrc"
+# SRC="$SCRIPT_DIR/bash/.bashrc"
+# LINK="$HOME/.bashrc"
 
-echo -e "${GREEN}Creating symlink for bash...${NC}"
+# echo -e "${GREEN}Creating symlink for bash...${NC}"
 
-ln -s "$SRC" "$LINK"
+# ln -s "$SRC" "$LINK"
 
 # optionally:
 # source ~/.bashrc
 
 # --------
 
-SRC="$SCRIPT_DIR/zsh/.zshrc"
-LINK="$HOME/.zsh"
+# SRC="$SCRIPT_DIR/zsh/.zshrc"
+# LINK="$HOME/.zsh"
 
-echo -e "${GREEN}Creating symlink for zsh...${NC}"
+# echo -e "${GREEN}Creating symlink for zsh...${NC}"
 
-ln -s "$SRC" "$LINK"
+# ln -s "$SRC" "$LINK"
 
 # optionally:
 # source ~/.zshrc
@@ -121,6 +132,7 @@ FOLDERS=(
   waybar
   hypr/hyprlock
   alacritty
+  ashell
 )
 
 for f in "${FOLDERS[@]}"; do

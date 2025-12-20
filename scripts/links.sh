@@ -22,6 +22,7 @@ FILES=(
   hypridle.conf
   hyprlock.conf
   hyprpaper.conf
+  gamemode.sh
 )
 
 # ln -s "$SCRIPT_DIR/hypr/hyprland.conf" "$HOME/.config/hypr/hyprland.conf"

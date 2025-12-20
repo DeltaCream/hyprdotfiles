@@ -232,6 +232,9 @@ cd ../windows
 go build -buildmode=plugin
 cp windows.so ~/.config/elephant/providers/
 
+# enable elephant as a service
+elephant service enable
+
 # walker (hyprlauncher alternative)
 git clone https://github.com/abenz1267/walker.git
 cd walker
@@ -380,6 +383,24 @@ sudo cp target/release/ashell /usr/bin
 sudo dnf copr enable erikreider/swayosd
 sudo dnf install swayosd
 
+# Used for notifying when caps-lock, scroll-lock, and num-lock is changed.
+sudo systemctl enable --now swayosd-libinput-backend.service
+
+# clipvault (cliphist-inspired clipboard manager)
+cargo install clipvault --locked
+
+# fastfetch (system display)
+sudo dnf install fastfetch
+
+# dnf dependencies for wleave
+sudo dnf install libadwaita-devel
+
+# wleave (Wayland logout prompt utility based from wlogout, written in Rust)
+git clone https://github.com/AMNatty/wleave.git
+cd wleave
+cargo build --release
+sudo cp target/release/wleave /usr/bin
+
 # tweaks from Hyprland
 
 # from https://wiki.hypr.land/Nvidia/
@@ -388,3 +409,5 @@ sudo dnf install egl-wayland2
 # hyprland.conf necessities
 
 sudo dnf install brightnessctl # for brightness/backlight adjustment
+sudo dnf install nm-applet # used for Wi-Fi pop-up dialogs
+sudo dnf install gnome-keyring # needed as a keyring for nm-applet and NetworkManager on non-GNOME/non-KDE environments

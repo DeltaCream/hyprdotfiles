@@ -16,7 +16,7 @@ app_launcher_cmd = "walker"
 
 [updates]
 check_cmd = "dnf check-update"
-update_cmd = 'alacritty -e bash -c "sudo dnf upgrade --refresh; echo Done - Press enter to exit; read" &'
+update_cmd = 'alacritty -e bash -c "sudo dnf upgrade --refresh; sudo flatpak update; echo Done - Press enter to exit; read" &'
 
 [workspaces]
 visibility_mode = "All" # All or MonitorSpecific

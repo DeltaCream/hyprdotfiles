@@ -46,3 +46,5 @@ export GOBIN="/home/cream/go/bin"
 export PATH="$PATH:$HOME/go/bin"
 
 eval "$(starship init bash)"
+
+fastfetch

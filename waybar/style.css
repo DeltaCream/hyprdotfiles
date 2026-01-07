@@ -1,22 +1,24 @@
 * {
     /* font-family: 'Noto Sans Mono', 'Font Awesome 6 Free', 'Font Awesome 6 Brands', monospace; */
     /* font-family: "Iosevka Nerd Font", monospace; */
-    font-family: 
-    /* 'monospace'; */
-    /* 'Font Awesome 6 Brands'; */
-    /* 'Font Awesome 6 Free'; */
-    /* 'Noto Sans Mono'; */
-    /* 'Noto Sans'; */
-    /* 'Helvetica'; */
-    /* 'JetBrainsMono Nerd Font'; */
-    'Rubik Light';
-    /* 'Junicode'; */
-    font-size: 12px;
+    font-family:
+    /*'monospace';*/
+    /*'Font Awesome 6 Brands';*/
+    /*'Font Awesome 6 Free';*/
+    /*'Noto Sans Mono';*/
+    /*'Noto Sans';*/
+    'Helvetica';
+    /*'JetBrainsMono Nerd Font';*/
+    /*'Rubik Light';*/
+    /*'Junicode';*/
+    /*'0xProtoNerdFontMono';*/
+    /*font-family: FontAwesome, Roboto, Helvetica, Arial, sans-serif;*/
+    font-size: 13px;
 }
 
 window#waybar {
-    /* background-color: rgba(43, 48, 59, 0.5); */
-    /* border-bottom: 3px solid rgba(100, 114, 125, 0.5); */
+    background-color: rgba(43, 48, 59, 0.5);
+    border-bottom: 3px solid rgba(100, 114, 125, 0.5);
     color: #ffffff;
     transition-property: background-color;
     transition-duration: .5s;
@@ -106,7 +108,7 @@ button:hover {
 #power-profiles-daemon,
 #custom-power,
 #mpd {
-    padding: 0 9px;
+    padding: 0 10px;
     color: #ffffff;
     border-radius: 9px;
 }
@@ -330,7 +332,7 @@ label:focus {
 }
 
 #privacy-item {
-    padding: 0;
+    padding: 0 5px;
     color: white;
 }
 

@@ -41,10 +41,16 @@ esac
 # Add deno bash completions
 source /home/cream/.local/share/bash-completion/completions/deno.bash
 
+# Add awww bash completions
+source /home/cream/.local/share/bash-completion/completions/awww.bash
+
 export GOPATH="/home/cream/go"
 export GOBIN="/home/cream/go/bin"
 export PATH="$PATH:$HOME/go/bin"
 
-eval "$(starship init bash)"
+# bun
+export BUN_INSTALL="$HOME/.bun"
+export PATH="$BUN_INSTALL/bin:$PATH"
 
+eval "$(starship init bash)"
 fastfetch

@@ -3,6 +3,11 @@
 # exit on errors
 set -euo pipefail
 
+printf 'BASH_SOURCE[0]=%s\n' "${BASH_SOURCE[0]}"
+printf 'dirname(BASH_SOURCE[0])=%s\n' "$(dirname "${BASH_SOURCE[0]}")"
+printf 'dirname(dirname(BASH_SOURCE[0]))=%s\n' "$(dirname "$(dirname "${BASH_SOURCE[0]}")")"
+printf 'pwd when cd to that: %s\n' "$(cd "$(dirname "$(dirname "${BASH_SOURCE[0]}")")" && pwd -P)"
+
 # Colors (optional)
 BLUE='\e[34m'
 GREEN="\033[0;32m"
@@ -13,8 +18,21 @@ echo -e "${BLUE}=== Hyprdotfiles Setup Script ===${NC}"
 
 echo -e "${GREEN}Creating symlinks for Hyprland configs...${NC}"
 
+SCRIPT_PATH="${BASH_SOURCE[0]}"
+
+# Prefer readlink -f (Linux) / realpath if available; otherwise make absolute via $PWD
+if command -v readlink >/dev/null 2>&1; then
+  # readlink -f resolves symlinks and returns absolute path
+  SCRIPT_PATH="$(readlink -f "$SCRIPT_PATH" 2>/dev/null || true)"
+fi
+
+if [ -z "${SCRIPT_PATH:-}" ] || [[ "$SCRIPT_PATH" != /* ]]; then
+  # fallback: make absolute relative to current working directory
+  SCRIPT_PATH="$PWD/${BASH_SOURCE[0]}"
+fi
+
 # directory containing script.sh
-SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+ROOT_DIR="$(cd "$(dirname "$SCRIPT_PATH")/.." && pwd -P)"
 
 # list of config files to link (basename only)
 FILES=(
@@ -25,13 +43,13 @@ FILES=(
   gamemode.sh
 )
 
-# ln -s "$SCRIPT_DIR/hypr/hyprland.conf" "$HOME/.config/hypr/hyprland.conf"
-# ln -s "$SCRIPT_DIR/hypr/hypridle.conf" "$HOME/.config/hypr/hypridle.conf"
-# ln -s "$SCRIPT_DIR/hypr/hyprlock.conf" "$HOME/.config/hypr/hyprlock.conf"
-# ln -s "$SCRIPT_DIR/hypr/hyprpaper.conf" "$HOME/.config/hypr/hyprpaper.conf"
+# ln -s "$ROOT_DIR/hypr/hyprland.conf" "$HOME/.config/hypr/hyprland.conf"
+# ln -s "$ROOT_DIR/hypr/hypridle.conf" "$HOME/.config/hypr/hypridle.conf"
+# ln -s "$ROOT_DIR/hypr/hyprlock.conf" "$HOME/.config/hypr/hyprlock.conf"
+# ln -s "$ROOT_DIR/hypr/hyprpaper.conf" "$HOME/.config/hypr/hyprpaper.conf"
 
 for f in "${FILES[@]}"; do
-  SRC="$SCRIPT_DIR/hypr/$f"
+  SRC="$ROOT_DIR/hypr/$f"
   LINK="$HOME/.config/hypr/$f"
 
   # ensure parent exists
@@ -84,7 +102,7 @@ done
 
 # ---------
 
-SRC="$SCRIPT_DIR/starship/starship.toml"
+SRC="$ROOT_DIR/starship/starship.toml"
 LINK="$HOME/.config/starship.toml"
 
 echo -e "${GREEN}Creating symlink for starship...${NC}"
@@ -104,7 +122,7 @@ fi
 
 # ---------
 
-# SRC="$SCRIPT_DIR/bash/.bashrc"
+# SRC="$ROOT_DIR/bash/.bashrc"
 # LINK="$HOME/.bashrc"
 
 # echo -e "${GREEN}Creating symlink for bash...${NC}"
@@ -116,7 +134,7 @@ fi
 
 # --------
 
-# SRC="$SCRIPT_DIR/zsh/.zshrc"
+# SRC="$ROOT_DIR/zsh/.zshrc"
 # LINK="$HOME/.zsh"
 
 # echo -e "${GREEN}Creating symlink for zsh...${NC}"
@@ -134,10 +152,13 @@ FOLDERS=(
   hypr/hyprlock
   alacritty
   ashell
+  wleave
+  swayosd
+  walker
 )
 
 for f in "${FOLDERS[@]}"; do
-  SRC="$SCRIPT_DIR/$f"
+  SRC="$ROOT_DIR/$f"
   LINK="$HOME/.config/$f"
   echo -e "${GREEN}Creating symlink for $f folder...${NC}"
   mkdir -p "$(dirname "$LINK")"

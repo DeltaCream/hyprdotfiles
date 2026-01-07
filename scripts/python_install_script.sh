@@ -18,4 +18,7 @@ curl -LsSf https://astral.sh/uv/install.sh | sh
 # If not using uv:
 # pip install --user savify
 
+# Install copyparty
+uv tool run copyparty
+
 echo "All Python packages have been installed!"

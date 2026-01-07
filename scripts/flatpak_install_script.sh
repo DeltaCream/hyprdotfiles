@@ -55,6 +55,8 @@ FLATPAK_APPS=(
     io.github.fastrizwaan.WineZGUI
     io.github.fastrizwaan.WineCharm
     org.vinegarhq.Sober
+    org.azahar_emu.Azahar # 3DS Emulator, continuation of Citra
+    net.kuribo64.melonDS # Nintendo DS Emulator
 
     # --- Utilities ---
     app.zen_browser.zen
@@ -83,6 +85,7 @@ FLATPAK_APPS=(
     org.kde.kweather
     org.kde.kalk
     org.kde.kclock
+    org.audacityteam.Audacity
 
     # — Text Utilities ---
     com.logseq.Logseq
@@ -113,7 +116,7 @@ FLATPAK_APPS=(
     # ---Image Utilities ---
     io.gitlab.adhami3310.Converter
     net.fasterland.converseen
-    org.kde.digikam
+    org.kde.digikam # open-source digital photo editor and manager
     org.upscayl.Upscayl # (doubles as AI)
 
     # ---Finance ---

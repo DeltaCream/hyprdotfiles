@@ -232,6 +232,11 @@ cd ../windows
 go build -buildmode=plugin
 cp windows.so ~/.config/elephant/providers/
 
+# custom clipvault provider (requires clipvault, not provided in official repositories)
+cd ../clipvault
+go build -buildmode=plugin
+cp clipvault.so ~/.config/elephant/providers/
+
 # enable elephant as a service
 elephant service enable
 
@@ -257,7 +262,7 @@ qt6-qtmultimedia-devel \
 qt6-qtsvg-devel \
 qt6-qtbase-private-devel
 
-Note: All of the packages above comprise the tools needed for qt6ct
+# Note: All of the packages above comprise the tools needed for qt6ct
 
 # hyprqt6engine
 git clone --recursive https://github.com/hyprwm/hyprqt6engine.git
@@ -300,6 +305,16 @@ cmake --no-warn-unused-cli -DCMAKE_BUILD_TYPE:STRING=Release -DCMAKE_INSTALL_PRE
 cmake --build ./build --config Release --target all -j`nproc 2>/dev/null || getconf NPROCESSORS_CONF`
 sudo cmake --install build
 
+# sunsetr (hyprsunset, but automatically switches blue-light filter)
+git clone https://github.com/psi4j/sunsetr.git &&
+cd sunsetr
+
+# Build with cargo
+cargo build --release
+
+# Then install manually
+sudo cp target/release/sunsetr /usr/local/bin/
+
 # hyprland-qt-support
 git clone --recursive https://github.com/hyprwm/hyprland-qt-support.git
 cd hyprland-qt-support
@@ -308,10 +323,10 @@ cmake --build ./build --config Release --target all -j`nproc 2>/dev/null || getc
 sudo cmake --install build
 
 # xdg-desktop-portal-hyprland
-git clone --recursive https://github.com/hyprwm/hyprland-guiutils.git
-cd hyprland-guiutils
-cmake --no-warn-unused-cli -DCMAKE_BUILD_TYPE:STRING=Release -DCMAKE_INSTALL_PREFIX:PATH=/usr -S . -B ./build
-cmake --build ./build --config Release --target all -j`nproc 2>/dev/null || getconf NPROCESSORS_CONF`
+git clone --recursive https://github.com/hyprwm/xdg-desktop-portal-hyprland
+cd xdg-desktop-portal-hyprland/
+cmake -DCMAKE_INSTALL_LIBEXECDIR=/usr/lib -DCMAKE_INSTALL_PREFIX=/usr -B build
+cmake --build build
 sudo cmake --install build
 
 # dnf dependencies for hyprpolkitagent
@@ -340,8 +355,8 @@ sudo cmake --install build
 git clone --recursive https://github.com/hyprwm/hyprpaper.git
 cd hyprpaper
 cmake --no-warn-unused-cli -DCMAKE_BUILD_TYPE:STRING=Release -DCMAKE_INSTALL_PREFIX:PATH=/usr -S . -B ./build
-cmake --build ./build --config Release --target all -j`nproc 2>/dev/null || getconf NPROCESSORS_CONF`
-sudo cmake --install build
+cmake --build ./build --config Release --target hyprpaper -j`nproc 2>/dev/null || getconf _NPROCESSORS_CONF`
+sudo cmake --install ./build
 
 # hyprpicker
 git clone --recursive https://github.com/hyprwm/hyprpicker.git
@@ -353,7 +368,7 @@ sudo cmake --install build
 # dnf dependencies for hyprlock
 sudo dnf install sdbus-cpp-devel
 
-# hyprlock (skipped due to not finding libpam) (MODIFIED: CAUTION)
+# hyprlock
 git clone --recursive https://github.com/hyprwm/hyprlock.git
 cd hyprlock
 cmake --no-warn-unused-cli -DCMAKE_BUILD_TYPE:STRING=Release -S . -B ./build
@@ -368,6 +383,13 @@ git clone https://github.com/Gustash/hyprshot.git Hyprshot
 ln -s $(pwd)/Hyprshot/hyprshot $HOME/.local/bin
 chmod +x Hyprshot/hyprshot
 
+# hypridle (idle screen saver)
+git clone https://github.com/hyprwm/hypridle.git
+cd hypridle
+cmake --no-warn-unused-cli -DCMAKE_BUILD_TYPE:STRING=Release -DCMAKE_INSTALL_PREFIX:PATH=/usr -S . -B ./build
+cmake --build ./build --config Release --target all -j`nproc 2>/dev/null || getconf NPROCESSORS_CONF`
+sudo cmake --install build
+
 # waybar (status bar)
 sudo dnf install waybar
 
@@ -379,15 +401,69 @@ cargo build --release
 # To install it system-wide
 sudo cp target/release/ashell /usr/bin
 
+# Install meson, a build system used by SwayOSD
+sudo dnf install meson
+
+# Dependencies for SwayOSD (if compiling from source)
+sudo dnf install sassc
+
+# dnf dependencies for eww
+sudo dnf install libdbusmenu-devel \
+libdbusmenu-gtk3-devel \
+gtk-layer-shell-devel
+
+# eww (Rust-based widget system, alternative to Quickshell)
+echo "Creating temporary working directory for eww..."
+rm -rf /tmp/eww
+mkdir /tmp/eww
+cd /tmp/eww
+git clone https://github.com/elkowar/eww
+cd eww
+cargo build --release --no-default-features --features=wayland
+cd target/release
+chmod +x ./eww
+sudo cp eww /usr/bin
+# To open eww
+# ./eww daemon
+# ./eww open <window_name>
+
 # SwayOSD (OSD for Hyprland)
-sudo dnf copr enable erikreider/swayosd
-sudo dnf install swayosd
+
+# Use this below if downloading from cargo
+# sudo dnf copr enable erikreider/swayosd
+# sudo dnf install swayosd
+
+# Use this if building from source
+git clone --recursive https://github.com/ErikReider/SwayOSD.git
+cd SwayOSD
+meson setup build --buildtype release
+ninja -C build
+meson install -C build
 
 # Used for notifying when caps-lock, scroll-lock, and num-lock is changed.
 sudo systemctl enable --now swayosd-libinput-backend.service
 
 # clipvault (cliphist-inspired clipboard manager)
 cargo install clipvault --locked
+
+# dnf dependencies for awww
+sudo dnf install lz4-devel
+
+# awww (Wayland Wallpaper Manager, formerly named swww)
+git clone https://codeberg.org/LGFae/awww.git
+cd awww
+cargo build --release
+sudo cp target/release/awww /usr/bin
+sudo cp target/release/awww-daemon /usr/bin
+
+# optionally copy awww completion files
+sudo cp completions/awww.bash ~/.local/share/bash-completion/completions/awww.bash
+sudo cp target/release/_awww ~/.local/share/zsh/site-functions/_awww.zsh
+sudo cp target/release/awww.fish ~/.local/share/fish/vendor_completions.d/awww.fish
+
+# waypaper (frontend for awww and hyprpaper)
+sudo dnf copr enable solopasha/hyprland
+sudo dnf install waypaper
 
 # fastfetch (system display)
 sudo dnf install fastfetch
@@ -411,3 +487,17 @@ sudo dnf install egl-wayland2
 sudo dnf install brightnessctl # for brightness/backlight adjustment
 sudo dnf install nm-applet # used for Wi-Fi pop-up dialogs
 sudo dnf install gnome-keyring # needed as a keyring for nm-applet and NetworkManager on non-GNOME/non-KDE environments
+
+# waybar necessities
+sudo dnf install pavucontrol # used to control audio
+git clone https://github.com/bjesus/wttrbar.git
+cd wttrbar
+cargo build --release
+sudo cp target/release/wttrbar /usr/bin
+
+# command-line stuff
+cargo install eza bat # Rust alternatives for ls and cat respectively
+sudo dnf install fd-find # Rust alternative for find
+
+sudo dnf install zsh # Zsh shell
+sudo dnf install fish # Fish shell

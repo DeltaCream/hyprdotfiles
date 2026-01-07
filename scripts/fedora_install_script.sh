@@ -37,11 +37,18 @@ PACKAGES=(
     fd # find alternative
     ripgrep # grep alternative
     alacritty # Rust terminal emulator
+    cmatrix # Matrix-inspired screen saver
+    tealdeer # Rust implementation of tldr
 
     # Utilities
     blender
     krita
     gimp
+    obs-studio
+    audacity
+
+    # Image Utiltiies
+    digikam # open-source digital photo editor and manager
 
     # — Torrent and File Sharing ---
     qbittorrent
@@ -51,6 +58,14 @@ PACKAGES=(
 
     # freyr-js set-up
     AtomicParsley
+
+    # Gaming
+    steam
+    lutris
+    wine
+    retroarch
+    wine-mono
+    winetricks
 )
 
 echo -e "${GREEN}Installing packages...${NC}"

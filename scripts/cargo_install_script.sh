@@ -61,3 +61,6 @@ cargo install mask # cli task runner defined by a simple markdown file
 cargo install presenterm # a terminal slideshow presentation tool
 cargo install kondo # dependency and build artifact cleaner for projects
 cargo install espanso # cross-platform text expander
+
+# Applications
+cargo install alacritty

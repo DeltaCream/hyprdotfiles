@@ -118,11 +118,17 @@ libreoffice-fresh                                      # latest version of libre
 ardour
 audacity
 ab-download-manager-bin                                # AB Download Manager for AUR
-
-audacity  lollypop  discord  code  blender  digikam  freecad  gimp  inkscape  kicad  librecad  filezilla  freedownloadmanager  nextcloud-client  qbittorrent  hypnotix  calligra  scrcpy  smplayer smplayer-skins smplayer-themes
+betterbird
+bitwarden
+github-desktop-plus # or desktop-plus
+mpv
+spotify
+trilium
+webcord
 
 # --------------------------------------------------- // Music
 cava                                                   # audio visualizer
+easy-effects
 
 # --------------------------------------------------- // Shell
 starship|zsh                                           # customizable shell prompt written in Rust
@@ -159,6 +165,18 @@ hypridle                                               # idle daemon
 # --------------------------------------------------- // OSD
 swayosd-git                                             #A GTK based on screen display for keyboard shortcuts like caps-lock and volume
 
+# --------------------------------------------------- // Gaming
+goverlay
+heroic-games-launcher
+lutris
+wine
+winetricks
+protontricks
+
+# --------------------------------------------------- // Utilities
+meld                                                   # file comparison and diffing tool, somehow I just had this
+showmethekey
+
 # --------------------------------------------------- // Stuff downloaded from CachyOS Package Installer
 # Audio
 ardour
@@ -183,6 +201,7 @@ kicad
 krita
 librecad
 # Internet
+abdownloadmanager
 filezilla
 freedownloadmanager
 nextcloud-client
@@ -197,7 +216,10 @@ libreoffice-fresh
 # Other
 scrcpy
 # Video
-smplayer
+smplayer smplayer-skins smplayer-themes # smplayer with some extras
 vlc
 # Virtualization
 # no virtualization apps installed
+
+// Command Line
+btop

@@ -1,0 +1,84 @@
+/* Sourced from: https://github.com/HyDE-Project/HyDE/blob/master/Configs/.config/wlogout/style_2.css */
+
+* {
+    background-image: none;
+    font-size: 21.6px;
+}
+
+@import "$HOME/.config/waybar/theme.css";
+
+window {
+    background-color: transparent;
+}
+
+button {
+    color: "black";
+    background-color: #101419;
+    outline-style: none;
+    border: none;
+    border-width: 0px;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 10%;
+    border-radius: 0px;
+    box-shadow: none;
+    text-shadow: none;
+    animation: gradient_f 20s ease-in infinite;
+}
+
+button:focus {
+    background-color: #93cee9;
+    background-size: 20%;
+}
+
+button:hover {
+    background-color: #93cee9;
+    background-size: 25%;
+    border-radius: 50px;
+    animation: gradient_f 20s ease-in infinite;
+    transition: all 0.3s cubic-bezier(0.55, 0, 0.28, 1.682);
+}
+
+button:hover#lock {
+    border-radius: 50px 50px 0px 50px;
+    margin: 216px 0px 0px 614.4px;
+}
+
+button:hover#logout {
+    border-radius: 50px 0px 50px 50px;
+    margin: 0px 0px 216px 614.4px;
+}
+
+button:hover#shutdown {
+    border-radius: 50px 50px 50px 0px;
+    margin: 216px 614.4px 0px 0px;
+}
+
+button:hover#reboot {
+    border-radius: 0px 50px 50px 50px;
+    margin: 0px 614.4px 216px 0px;
+}
+
+#lock {
+    /*background-image: image(url("$HOME/.config/wlogout/icons/lock_"black".png"), url("/usr/share/wlogout/icons/lock.png"), url("/usr/local/share/wlogout/icons/lock.png"));*/
+    border-radius: 80px 0px 0px 0px;
+    margin: 270px 0px 0px 672px;
+}
+
+#logout {
+    /*background-image: image(url("$HOME/.config/wlogout/icons/logout_"black".png"), url("/usr/share/wlogout/icons/logout.png"), url("/usr/local/share/wlogout/icons/logout.png"));*/
+    border-radius: 0px 0px 0px 80px;
+    margin: 0px 0px 270px 672px;
+}
+
+#shutdown {
+    /*background-image: image(url("$HOME/.config/wlogout/icons/shutdown_"black".png"), url("/usr/share/wlogout/icons/shutdown.png"), url("/usr/local/share/wlogout/icons/shutdown.png"));*/
+    border-radius: 0px 80px 0px 0px;
+    margin: 270px 672px 0px 0px;
+}
+
+#reboot {
+    /*background-image: image(url("$HOME/.config/wlogout/icons/reboot_"black".png"), url("/usr/share/wlogout/icons/reboot.png"), url("/usr/local/share/wlogout/icons/reboot.png"));*/
+    border-radius: 0px 0px 80px 0px;
+    margin: 0px 672px 270px 0px;
+}

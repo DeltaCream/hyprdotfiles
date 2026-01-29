@@ -17,6 +17,16 @@ blueman                                                # bluetooth manager gui
 brightnessctl                                          # screen brightness control
 playerctl                                              # media controls
 udiskie                                                # manage removable media
+wttrbar                                                # for weather
+
+# --------------------------------------------------- // CachyOS Tweaks
+# Note: these are retrieved from the official CachyOS repository: https://wiki.cachyos.org/configuration/general_system_tweaks/#audio-and-software-enhancements
+easyeffects
+lsp-plugins-lv2
+zam-plugins
+calf
+mda.lv2
+obs-studio-browser
 
 # --------------------------------------------------- // Display Manager
 sddm                                                   # display manager for KDE plasma
@@ -27,21 +37,37 @@ qt5-graphicaleffects                                   # for sddm theme effects
 # --------------------------------------------------- // Window Manager
 hyprland                                               # wlroots-based wayland compositor
 dunst                                                  # notification daemon
-rofi                                                   # application launcher
+# rofi                                                   # application launcher
+walker                                                 # application launcher
+elephant                                               # backend for walker
 waybar                                                 # system bar
-swww                                                   # wallpaper
+eww                                                    # widget framework that can be used to make a system bar
+ironbar                                                # customizable system bar
+ashell                                                 # simple system bar you can use out of the box
+# swww                                                   # wallpaper
+awww                                                   # wallpaper (updated from swww)
+hyprpaper                                              # wallpaper
+waypaper                                               # wallpaper manager (frontend for awww and/or hyprpaper)
 hyprlock                                               # lock screen
-wlogout                                                # logout menu
+# wlogout                                                # logout menu
+wleave                                                # logout menu
 grim                                                   # screenshot tool
 hyprpicker                                             # color picker
 slurp                                                  # region select for screenshot/screenshare
+hyprshot                                               # screenshot tool that uses grim and slurp
+wayshot                                                # alternative screenshot tool from hyprshot
 satty                                                  # Modern Screenshot Annotation
-cliphist                                               # clipboard manager
-wl-clip-persist                                        # Keep Wayland clipboard even after programs close (avoids crashes)
+# cliphist                                               # clipboard manager
+# wl-clip-persist                                        # Keep Wayland clipboard even after programs close (avoids crashes)
+clipvault                                              # clipboard manager built in Rust (better than cliphist)
 hyprsunset                                             # blue light filter
+sunsetr                                                # blue light filter automatically during sunrise and sunset, uses hyprsunset
+hyprlux                                                # blue light filter, alternative to sunsetr
+hyprshutdown                                           # shutdown tool for hyprland
 
 # --------------------------------------------------- // Dependencies
 polkit-gnome                                           # authentication agent
+hyprpolkitagent                                        # authentication agent for hyprland
 xdg-desktop-portal-hyprland                            # xdg desktop portal for hyprland
 xdg-desktop-portal-gtk                                 # file picker and dbus  integration
 xdg-user-dirs                                          # Manage user directories like ~/Desktop and ~/Music
@@ -62,26 +88,116 @@ qt6ct                                                  # qt6 configuration tool
 kvantum                                                # svg based qt6 theme engine
 kvantum-qt5                                            # svg based qt5 theme engine
 qt5-wayland                                            # wayland support in qt5
-qt6-wayland                                            # wayland support in qt6
+qt6-wayland                                            # wayland support in qt6, needed for OBS
 
 # --------------------------------------------------- // Applications
 firefox                                                # browser
 kitty                                                  # terminal
+alacritty                                              # also a terminal
 dolphin                                                # kde file manager
 ark                                                    # kde file archiver
 unzip                                                  # extracting zip files
 vim                                                    # terminal text editor
+# neovim                                               # vim based text editor
 code                                                   # ide text editor
+zed                                                    # also an ide text editor
 nwg-displays                                           # monitor management utility
 fzf                                                    # Command-line fuzzy finder
 obs-studio                                             # Open Broadcaster Software
+bitwarden                                              # Password Manager
+obsidian                                               # Markdown Note Manager
+qbittorrent                                            # Torrenting application
+freedownloadmanager                                    # Free Download Manager
+gimp
+inkscape
+blender
+digikam
+freecad                                                # 3D CAD
+librecad                                               # 2D CAD
+libreoffice-fresh                                      # latest version of libreoffice for Arch
+ardour
+audacity
+ab-download-manager-bin                                # AB Download Manager for AUR
+
+audacity  lollypop  discord  code  blender  digikam  freecad  gimp  inkscape  kicad  librecad  filezilla  freedownloadmanager  nextcloud-client  qbittorrent  hypnotix  calligra  scrcpy  smplayer smplayer-skins smplayer-themes
+
+# --------------------------------------------------- // Music
+cava                                                   # audio visualizer
 
 # --------------------------------------------------- // Shell
 starship|zsh                                           # customizable shell prompt written in Rust
 # starship-git                                         # The cross-shell prompt for astronauts
 starship|fish                                          # customizable shell prompt
-
 fastfetch                                              # system information fetch tool
+
+# --------------------------------------------------- // zsh
+# oh-my-zsh-git|zsh                                      # Optional plugin manager for zsh
+# pokemon-colorscripts-git|zsh                           # display pokemon sprites (optional)
+# pokego-bin|zsh                                         # display pokemon sprites in terminal (written GO)
+# zsh-theme-powerlevel10k-git|zsh                        # Powerlevel10k is a theme for Zsh. It emphasizes speed, flexibility and out-of-the-box experience.
+bat|zsh                                                  # enhanced version of cat
+eza|zsh                                                  # file lister for zsh
+duf|zsh                                                  # prettier version of df for zsh
+# --------------------------------------------------- // fish
+bat|fish                                                 # enhanced version of cat
+eza|fish                                                 # file lister
+duf|fish                                                 # prettier version of df
+fd                                                       # enhanced version of find
+ripgrep                                                  # blazingly fast alternative to grep
+zoxide                                                   # better cd command for the terminal
+skim                                                     # fuzzy finder for the terminal
 
 # --------------------------------------------------- // HyDE
 hypridle                                               # idle daemon
+
+# --------------------------------------------------- // Editor
+# vscodium                                              # Full oss text editor
+# vscodium-marketplace|vscodium                         # VSCodium marketplace
+# code-marketplace|code                                 # Code-Oss marketplace
+# visual-studio-code-bin                                # MS  text editor
+
+# --------------------------------------------------- // OSD
+swayosd-git                                             #A GTK based on screen display for keyboard shortcuts like caps-lock and volume
+
+# --------------------------------------------------- // Stuff downloaded from CachyOS Package Installer
+# Audio
+ardour
+audacity
+# Browsers
+firefox
+# Communication
+discord
+# Development
+code
+docker
+vim
+# Games
+# no games installed
+# Graphics
+blender
+digikam
+freecad
+gimp
+inkscape
+kicad
+krita
+librecad
+# Internet
+filezilla
+freedownloadmanager
+nextcloud-client
+qbittorrent
+# Mail
+# no mail apps installed
+# Multimedia
+hypnotix
+# Office
+calligra
+libreoffice-fresh
+# Other
+scrcpy
+# Video
+smplayer
+vlc
+# Virtualization
+# no virtualization apps installed

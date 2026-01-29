@@ -862,8 +862,8 @@ func getMimetypes() []string {
 
 	out, err := cmd.CombinedOutput()
 	if err != nil {
-		log.Println(err)
-		log.Println(string(out))
+		slog.Println(err)
+		slog.Println(string(out))
 		return []string{}
 	}
 
